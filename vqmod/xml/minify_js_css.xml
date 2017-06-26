@@ -1,0 +1,72 @@
+<modification>
+	<id>JS and CSS Minifier</id>
+	<version>1.0.0</version>
+	<vqmver>2.1.5</vqmver>
+	<author>Georgi Kolev</author>
+	<file name="system/library/document.php">
+		<operation>
+			<search position="before"><![CDATA[public function setTitle($title) {]]></search>
+			<add><![CDATA[
+				public function __construct($registry) 
+				{
+					$this->compress = $registry->get('compress');
+				}
+			]]></add>
+		</operation>
+		<operation>
+			<search position="replace"><![CDATA[return $this->scripts[$postion];]]></search>
+			<add><![CDATA[
+				$md5 = md5(serialize($this->scripts[$postion])) . '.js';
+				$file = DIR_CACHE . $md5 . '.js';
+				
+				if (file_exists($file))
+				{
+					$scripts[$file] = $file;
+					
+					return $scripts;
+					
+				} else {
+					
+					$resource = 'system/storage/cache/' . $this->compress->merge_js($this->scripts[$postion]);
+					
+					$array[$resource] = $resource;
+					
+					return $array;
+					
+				}
+			]]></add>
+		</operation>
+		<operation>
+			<search position="replace"><![CDATA[return $this->styles;]]></search>
+			<add><![CDATA[
+				$md5 = md5(serialize($this->styles)) . '.css';
+				$file = DIR_CACHE . $md5 . '.css';
+				
+				if (file_exists($file))
+				{
+					$style[$file] = array(
+						'href' => $file,
+						'rel' => 'stylesheet',
+						'media' => 'screen'
+					);
+					
+					return $style;
+					
+				} else {
+					
+					$resource = 'system/storage/cache/' . $this->compress->merge_css($this->styles);
+					
+					$array[$resource] = array(
+						'href' => $resource,
+						'rel' => 'stylesheet',
+						'media' => 'screen'
+					);
+					
+					return $array;
+					
+				}
+			]]></add>
+		</operation>
+	</file>
+	
+</modification>
