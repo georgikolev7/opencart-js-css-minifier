@@ -1,10 +1,15 @@
 <?php
 
-require_once DIR_SYSTEM . 'library/minify/Minify.php';
-require_once DIR_SYSTEM . 'library/minify/CSS.php';
-require_once DIR_SYSTEM . 'library/minify/JS.php';
-require_once DIR_SYSTEM . 'library/minify/Exception.php';
-require_once DIR_SYSTEM . 'library/minify/Converter.php';
+require_once DIR_SYSTEM . 'library/minify/minify/src/Minify.php';
+require_once DIR_SYSTEM . 'library/minify/minify/src/CSS.php';
+require_once DIR_SYSTEM . 'library/minify/minify/src/JS.php';
+require_once DIR_SYSTEM . 'library/minify/minify/src/Exception.php';
+require_once DIR_SYSTEM . 'library/minify/minify/src/Exceptions/BasicException.php';
+require_once DIR_SYSTEM . 'library/minify/minify/src/Exceptions/FileImportException.php';
+require_once DIR_SYSTEM . 'library/minify/minify/src/Exceptions/IOException.php';
+require_once DIR_SYSTEM . 'library/minify/path-converter/src/ConverterInterface.php';
+require_once DIR_SYSTEM . 'library/minify/path-converter/src/Converter.php';
+
 use MatthiasMullie\Minify;
 
 class Compress {
